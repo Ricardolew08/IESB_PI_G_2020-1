@@ -5,23 +5,18 @@
 #include <unistd.h>
 
 /*
-
 NOME - E-MAIL - TELEFONE
-
 GERAR NOME
-- mÌnimo de 4 e m·ximo 8 letras
+- m√≠nimo de 4 e m√°ximo 8 letras
 - gerar sobrenome
 - nome completo = primeiro nome + primeiro nome
-
 GERAR E-MAIL
 - e-mail vai ser nome (nome completo) + @GRUPOG.iesb
-
 GERAR TELEFONE
 - 55XX9XXXXXXXX
-
 *nome_completo+e_mail-telefone/n
-
 */
+
 typedef struct nome_completo{
 	char * nome1;
 	char * nome2;
@@ -29,19 +24,11 @@ typedef struct nome_completo{
 
 void gerar_telefone(int * n){
 
-	n[0] = 5; 
-	n[1] = 5;
-	n[4] = 9;
+	n[0] = 9; 
 	
-	
-	for (int i = 2; i < 13; i++){
-		
-		if (i != 4){
-		
+	for (int i = 1; i < 9; i++){
 		int x = rand() % 10;
-		
 		n[i] = x; 
-		}
 	}
 }
 
@@ -57,7 +44,7 @@ void gerar_nome(char * c, int tam){
 int main(){
 	srand (time(NULL));
 	FILE *fptr;
-	fptr = fopen("DatasetPI-10k.txt","w");
+	fptr = fopen("DatasetPI-10kv2.txt","w");
 	
 	nome_completo c;
 	int tam1, tam2;
@@ -127,10 +114,10 @@ int main(){
 	/* NUMERO DE TELEFONE */
 	fprintf (fptr,"-");
 	
-	n = (int *)malloc(sizeof(int) * 13);
+	n = (int *)malloc(sizeof(int) * 10);
 	gerar_telefone(n);
 	
-	for (int i = 0; i < 13; i++){
+	for (int i = 0; i < 9; i++){
 		fprintf (fptr,"%d", n[i]);
 	}
 	fprintf (fptr,"\n");
