@@ -44,7 +44,7 @@ void gerar_nome(char * c, int tam){
 int main(){
 	srand (time(NULL));
 	FILE *fptr;
-	fptr = fopen("DatasetPI-10kv2.txt","w");
+	fptr = fopen("DatasetPI-10K.txt","w");
 	
 	nome_completo c;
 	int tam1, tam2;
