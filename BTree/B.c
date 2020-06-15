@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include "omp.h"
 
 #define MIN 3
 
@@ -41,6 +43,7 @@ int main()
     char fileChar, strToInt[10], name[64], email[64];
 
     int arr[500], qtd = 0;
+    double t1, t2;
 
     FILE *fptr;
     fptr = fopen("DatasetPI-10kv2.txt", "r");
