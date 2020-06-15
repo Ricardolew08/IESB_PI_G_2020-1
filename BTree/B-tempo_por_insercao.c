@@ -47,7 +47,7 @@ int main()
     double t1, t2;
 
     FILE *fptr;
-    fptr = fopen("DatasetPI-10kv2.txt", "r");
+    fptr = fopen("DatasetPI-500.txt", "r");
 
     FILE *tempo_insercao_B;
     tempo_insercao_B = fopen("insercao_Btree2.txt", "w");
