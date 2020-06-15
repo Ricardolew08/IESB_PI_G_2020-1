@@ -36,6 +36,7 @@ void merge(node *mynode, int i);
 void fill(node *mynode, int i);
 void find_delete(node *mynode, int data);
 void delete (int data);
+node *search(node *mynode, int data);
 
 int main()
 {
@@ -109,16 +110,16 @@ int main()
 
     int i;
 
-    /*SEARCH!!!!
-    for()
+    t1 = omp_get_wtime();
+
+    for (i = 0; i < qtd; i++)
     {
-        t1=omp_get_wtime();
-
-        t2=omp_get_wtime();
-
-        fprintf(tempo_consulta_B,"%g \n",t2-t1);
-
-    }*/
+        mynode = search(ROOT, arr[i]);
+    }
+    
+    t2 = omp_get_wtime();
+    
+    fprintf(tempo_consulta_B, "%g \n", t2-t1);
 
     for (i = 0; i < qtd; i++)
     {
@@ -546,5 +547,32 @@ void delete (int data)
             ROOT = ROOT->child[0];
         }
         free(ptr);
+    }
+}
+node *search(node *mynode, int data)
+{
+    int j = 0;
+    while (j < mynode->count && data > mynode->keys[j]->val)
+    {
+        j++;
+    }
+    if (mynode->keys[j] && j < (2 * MIN) - 1)
+    {
+        if (mynode->keys[j]->val == data)
+        {
+            return mynode;
+        }
+    }
+    if (mynode->leaf)
+    {
+        return NULL;
+    }
+    if (mynode->child[j])
+    {
+        search(mynode->child[j], data);
+    }
+    else
+    {
+        return NULL;
     }
 }
