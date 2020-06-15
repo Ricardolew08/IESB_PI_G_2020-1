@@ -36,6 +36,7 @@ void merge(node *mynode, int i);
 void fill(node *mynode, int i);
 void find_delete(node *mynode, int data);
 void delete (int data);
+node *search(node *mynode, int data);
 
 int main()
 {
@@ -107,8 +108,13 @@ int main()
 
     int i;
     //printar(ROOT);
-
+    struct node *mynode;
     t1 = omp_get_wtime();
+
+    for (i = 0; i < qtd; i++)
+    {
+        mynode = search(ROOT, arr[i]);
+    }
     /*for (i = 0; i < qtd; i++)
     {
 
@@ -554,5 +560,33 @@ void delete (int data)
             ROOT = ROOT->child[0];
         }
         free(ptr);
+    }
+}
+
+node *search(node *mynode, int data)
+{
+    int j = 0;
+    while (j < mynode->count && data > mynode->keys[j]->val)
+    {
+        j++;
+    }
+    if (mynode->keys[j] && j < (2 * MIN) - 1)
+    {
+        if (mynode->keys[j]->val == data)
+        {
+            return mynode;
+        }
+    }
+    if (mynode->leaf)
+    {
+        return NULL;
+    }
+    if (mynode->child[j])
+    {
+        search(mynode->child[j], data);
+    }
+    else
+    {
+        return NULL;
     }
 }
