@@ -34,12 +34,12 @@ void merge(node *mynode, int i);
 void fill(node *mynode, int i);
 void find_delete(node *mynode, int data);
 void delete (int data);
+node *search(node *mynode, int data);
 
 int main()
 {
     int stringIndex, key;
     char fileChar, strToInt[10], name[64], email[64];
-
 
     int arr[2000000], qtd = 0;
 
@@ -89,15 +89,26 @@ int main()
 
         fileChar = fgetc(fptr);
     }
-    
+
     printar(ROOT);
+
+    int i;
+    struct node *mynode;
     
-	int i;
-	for (i=0;i<qtd;i++){
-		printf("Deletando %d\n",arr[i]);
-        delete(arr[i]);
-	}
+    for (i = 0; i < qtd; i++)
+    {
+        printf("buscando %d\n", arr[i]);
+        mynode = search(ROOT, arr[i]);
+        printf("encontrado\n");
+    }
+    
+    for (i = 0; i < qtd; i++)
+    {
+        delete (arr[i]);
+    }
+
     printar(ROOT);
+
     return 0;
 }
 
@@ -310,7 +321,7 @@ void deletenotleaf(node *mynode, int i)
     {
         key *suc = getsuc(mynode, i);
         mynode->keys[i] = suc;
-        find_delete(mynode->child[i+1], suc->val);
+        find_delete(mynode->child[i + 1], suc->val);
     }
 
     else
@@ -416,7 +427,7 @@ void merge(node *mynode, int i)
     filho->count += irm->count + 1;
     mynode->count--;
 
-    free (irm);
+    free(irm);
 }
 
 void fill(node *mynode, int i)
@@ -446,7 +457,7 @@ void fill(node *mynode, int i)
 
 void find_delete(node *mynode, int data)
 {
-    int i = find(mynode, data); 
+    int i = find(mynode, data);
 
     if (i < mynode->count && mynode->keys[i]->val == data) //NÃO TÁ ENTRANDO AQUI E DEVERIA, PROVAVEL PROBLEMA NO FIND -> TALVEZ ALGUMA FUNÇÃO ESTEJA FAZENDO O COUNT ERRADO
     {
@@ -463,7 +474,7 @@ void find_delete(node *mynode, int data)
     {
         if (mynode->leaf)
         {
-            printf("A chave %d nao existe.\n", data);
+            printf("A chave %d nao foi encontrada.\n", data);
             return;
         }
 
@@ -514,5 +525,33 @@ void delete (int data)
             ROOT = ROOT->child[0];
         }
         free(ptr);
+    }
+}
+
+node *search(node *mynode, int data)
+{
+    int j = 0;
+    while (j < mynode->count && data > mynode->keys[j]->val)
+    {
+        j++;
+    }
+    if (mynode->keys[j] && j < (2 * MIN) - 1)
+    {
+        if (mynode->keys[j]->val == data)
+        {
+            return mynode;
+        }
+    }
+    if (mynode->leaf)
+    {
+        return NULL;
+    }
+    if (mynode->child[j])
+    {
+        search(mynode->child[j], data);
+    }
+    else
+    {
+        return NULL;
     }
 }
