@@ -596,7 +596,7 @@ int main()
     long long int arr[1000000]; // qtd = 0;
 
     FILE *fptr;
-    fptr = fopen("DatasetPI-10kv2-50milhoes.txt", "r");
+    fptr = fopen("DatasetPI-1milhao.txt", "r");
 
     FILE *tempo_insercao_total;
     tempo_insercao_total = fopen("insercao_RBtree_total.txt", "w");
