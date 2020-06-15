@@ -590,7 +590,7 @@ int main()
     int arr[500], qtd = 0, qtd2 = 0;
 
     FILE *fptr;
-    fptr = fopen("DatasetPI-10kv2.txt", "r");
+    fptr = fopen("DatasetPI-500.txt", "r");
 
     FILE *tempo_insercao;
     tempo_insercao = fopen("insercao_RBtree.txt", "w");
